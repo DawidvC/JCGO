@@ -3,7 +3,7 @@
  * a part of the minimalist "Win32" headers for JCGO.
  **
  * Project: JCGO (http://www.ivmaisoft.com/jcgo/)
- * Copyright (C) 2001-2009 Ivan Maidanski <ivmai@ivmaisoft.com>
+ * Copyright (C) 2001-2014 Ivan Maidanski <ivmai@mail.ru>
  * All rights reserved.
  */
 
@@ -76,6 +76,16 @@ typedef unsigned long DWORD;
 #define TRUE 1
 #endif
 
+#ifndef LONG
+#ifdef _WIN64
+typedef int LONG; /* in case of LP64 */
+typedef unsigned ULONG;
+#else
+typedef long LONG;
+typedef unsigned long ULONG;
+#endif
+#endif
+
 #ifdef __cplusplus
 }
 #endif
@@ -95,16 +105,6 @@ extern "C"
 
 #ifndef BOOL
 typedef int BOOL;
-#endif
-
-#ifndef LONG
-#ifdef _WIN64
-typedef int LONG; /* in case of LP64 */
-typedef unsigned ULONG;
-#else
-typedef long LONG;
-typedef unsigned long ULONG;
-#endif
 #endif
 
 #ifndef HINSTANCE

@@ -1,12 +1,12 @@
 
                   JCGO - Java source to C code translator
                   ---------------------------------------
-                          version 1.15 (internal)
-                          -----------------------
+                         version 1.16 (2014-04-29)
+                         -------------------------
                                User's Guide
                                ------------
 
-Copyright (C) 2001-2013 Ivan Maidanski <ivmai@mail.ru>
+Copyright (C) 2001-2014 Ivan Maidanski <ivmai@mail.ru>
 Copyright 2010 IvMaiSoft LLC. http://www.ivmaisoft.com
 All rights reserved.
 
@@ -438,9 +438,9 @@ but you are free to use any other folder (directory) for it.
 
 For AWT GUI applications translation, as a special exception (for the
 above unpacking rule), j2sdk-1_4_2-src-scsl.zip should be unpacked
-to the newly-created "j2sdk-1_4_2-src-scsl" folder (of the "JCGO"
+to the newly-created "contrib/j2sdk-1_4_2-src-scsl" folder (of the "JCGO"
 installation folder) and src.zip from the Sun J2SE v1.4.2_19 SDK - to
-"j2sdk1.4.2_19_src", respectively.
+"contrib/j2sdk1.4.2_19/src", respectively.
 
 Note: at the end of the installation process it is better to protect
 the entire JCGO installation folder and all its contents from
@@ -460,6 +460,8 @@ contents are as follows:
 "TraceJni" utilities);
 - "classpath-0.93" - the unpacked contents of the GNU Classpath
 ("Essential Libraries for Java") distributive file;
+- "contrib" - folder for 3rd-party content used by JCGO (bdwgc, tinygc,
+swt, j2sdk-1_4_2-src-scsl, j2sdk1.4.2_19/src, etc.);
 - "dlls" - precompiled dynamic-link (shared object) libraries (for the
 supported platforms);
 - "examples" - several simple Java samples (like "Hello world")
@@ -481,6 +483,8 @@ back-ends (useful only for non-standard C runtime environments);
 - "miscsrc" - miscellaneous C and Java sources ("JAWT" stub shared
 library source, "JPropJav" utility source, "T-PThread" library source
 and header, "WinMain" wrapper source);
+- "mkjcgo" - scripts to verify JCGO Java source (using JDK), generate
+contents of "rflg_out", and rebuild "auxbin", "libs", jcgo.jar/exe;
 - "native" - the JCGO C native back-ends (file I/O, network I/O,
 process execution, OS-specific properties retrieval);
 - "reflgen" - JNI method and field reflection usage data and the
@@ -499,12 +503,6 @@ utility from reflgen/*.dat files);
 - "jcgo.jar" - the JCGO translator executable (for Java VM);
 - "stdpaths.in" - response file (containing the "core" source paths)
 for the JCGO translator;
-- "j2sdk-1_4_2-src-scsl" - the unpacked contents of the Sun J2SDK
-v1.4.2 SCSL sources distributive file (used only with the additional
-"JCGO-SUNAWT" pack);
-- "j2sdk1.4.2_19_src" - the unpacked contents of "src.zip" file of the
-Sun J2SE v1.4.2_19 SDK (used only with the additional "JCGO-SUNAWT"
-pack);
 - "sawt_out" - the precompiled (generated) parts of the additional
 "JCGO-SUNAWT" pack (distributed separately);
 - "sunawt" - the sources of the additional "JCGO-SUNAWT" pack (optional)
@@ -562,7 +560,7 @@ here):
 
 cd C:\MyJcgoProjects
 mkdir .\Hello
-C:\JCGO\jcgo -d .\Hello -sourcepath $~\examples Hello @$~\stdpaths.in
+C:\JCGO\jcgo -d .\Hello -sourcepath $~\examples\simple Hello @$~\stdpaths.in
 gcc -IC:\JCGO\include -IC:\JCGO\include\boehmgc -IC:\JCGO\native
  -DJCGO_FFDATA -o hello .\Hello\Main.c C:\JCGO\libs\x86\mingw\libgc.a
 
@@ -570,7 +568,7 @@ For Linux (on x86) development host and target:
 
 cd /home/user/MyJcgoProjects
 mkdir ./Hello
-/usr/share/JCGO/jcgo -d ./Hello -sourcepath $~/examples Hello \
+/usr/share/JCGO/jcgo -d ./Hello -sourcepath $~/examples/simple Hello \
  @$~/stdpaths.in
 gcc -I /usr/share/JCGO/include -I /usr/share/JCGO/include/boehmgc \
  -I /usr/share/JCGO/native -fwrapv -DJCGO_UNIX -D_IEEEFP_H \
